@@ -21,7 +21,9 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  res.render('users', { names: aNames })
+  res.render('users', {
+    names: aNames
+  })
 })
 
 app.post('/users', (req, res) => {
@@ -32,6 +34,30 @@ app.post('/users', (req, res) => {
     if (err) throw err
     res.redirect('/users')
   })
+})
+
+app.delete('/users/:id', (req, res) => {
+  const id = req.params.id
+  aNames.splice(id, 1)
+  console.log(`You want to remove element ${id}`);
+  const jsonListNames = JSON.stringify(aNames)
+  fs.writeFile(OUTPUT_FILENAME, jsonListNames, err => {
+    if (err) throw err
+    res.send(`Success removing element ${id}!!`)
+  })
+})
+
+app.put('/users/:id', (req, res) => {
+  const id = req.params.id
+  const editedValue = req.body.editedValue
+  aNames[id] = editedValue
+  console.log(`You want to edit element ${id} w/ new Value ${editedValue}`);
+  const jsonListNames = JSON.stringify(aNames)
+  fs.writeFile(OUTPUT_FILENAME, jsonListNames, err => {
+    if (err) throw err
+    res.send(`Success editing element ${id}!!`)
+  })
+
 })
 
 app.listen(PORT, () => console.log(`🤘 Magic happens at PORT ${PORT}...`))
