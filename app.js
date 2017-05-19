@@ -21,7 +21,7 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  res.render('users')
+  res.render('users', { names: aNames })
 })
 
 app.post('/users', (req, res) => {
@@ -30,7 +30,7 @@ app.post('/users', (req, res) => {
   const jsonListNames = JSON.stringify(aNames)
   fs.writeFile(OUTPUT_FILENAME, jsonListNames, err => {
     if (err) throw err
-    res.send(`username has been properly saved!`)
+    res.redirect('/users')
   })
 })
 
