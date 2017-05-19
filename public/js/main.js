@@ -6,7 +6,7 @@ $('.list-users .remove').on('click', function(e) {
   $.ajax({ url, method })
     .done( response => {
       console.log(response)
-      $thisElement.parent().remove()
+      $thisElement.parents('.list-group-item').remove()
     })
 
 })
@@ -15,11 +15,11 @@ $('.list-users .edit').on('click', function(e) {
   e.preventDefault();
   const $thisElement = $(this)
   $thisElement
-    .parent()
+    .parents('.list-group-item')
       .find("form input")
         .removeClass("hidden")
         .end()
-      .find("span")
+      .find("p")
         .addClass("hidden")
 })
 
@@ -38,7 +38,7 @@ $(".edit-form").on("submit", function(e) {
   })
   .done( response => {
     $thisElement
-      .siblings("span")
+      .siblings("p")
         .text(editedValue)
         .removeClass("hidden")
         .end()
