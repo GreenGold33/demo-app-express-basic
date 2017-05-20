@@ -22,6 +22,7 @@ $('.list-users .edit').on('click', function(e) {
     .parents('.list-group-item')
       .find("form input")
         .removeClass("hidden")
+        .focus()
         .end()
       .find("p")
         .addClass("hidden")

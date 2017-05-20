@@ -9,20 +9,24 @@ router.get('/users', (req, res) => {
 
 router.post('/users', (req, res) => {
   const { username } = req.body
-  req.session.users.push(username)
+  const id = +new Date()
+  req.session.users.push({ id, username })
   res.redirect('/users')
 })
 
-router.delete('/users/:id', (req, res) => {
-  const { id } = req.params
-  req.session.users.splice(id, 1)
+router.delete('/user/:id', (req, res) => {
+  const id = +req.params.id
+  req.session.users = req.session.users.filter( user => user.id !== id )
   res.send(`Success removing element ${id}!!`)
 })
 
-router.put('/users/:id', (req, res) => {
-  const { id } = req.params
+router.put('/user/:id', (req, res) => {
+  const id = +req.params.id
   const { editedValue } = req.body
-  req.session.users[id] = editedValue
+  req.session.users = req.session.users.map( user => {
+    if (user.id === id) { user.username = editedValue }
+    return user
+  })
   res.send(`Success editing element ${id}!!`)
 })
 
