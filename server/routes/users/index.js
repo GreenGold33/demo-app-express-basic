@@ -1,30 +1,15 @@
 const express = require('express')
-const _ = require('lodash')
-const router =  express.Router()
 
-router.get('/users', (req, res) => {
-  const users = req.session.users
-  res.render('users', { users })
-})
+const router = express.Router()
 
-router.post('/users', (req, res) => {
-  const { username } = req.body
-  const id = +new Date()
-  req.session.users.push({ id, username })
-  res.redirect('/users')
-})
+const listUsers = require('./handlers/listUsers')
+const addUser = require('./handlers/addUser')
+const removeUser = require('./handlers/removeUser')
+const editUser = require('./handlers/editUser')
 
-router.delete('/user/:id', (req, res) => {
-  const idToRemove = +req.params.id
-  _.remove(req.session.users, user => user.id == idToRemove)
-  res.send(`Success removing element ${idToRemove}!!`)
-})
-
-router.put('/user/:id', (req, res) => {
-  const idToEdit = +req.params.id
-  const { editedValue } = req.body
-  _.find(req.session.users, { id: idToEdit }).username = editedValue
-  res.send(`Success editing element ${idToEdit}!!`)
-})
+router.get('/users', listUsers)
+router.post('/users', addUser)
+router.delete('/user/:id', removeUser)
+router.put('/user/:id', editUser)
 
 module.exports = router
