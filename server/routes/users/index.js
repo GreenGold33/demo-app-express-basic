@@ -17,14 +17,14 @@ router.post('/users', (req, res) => {
 router.delete('/user/:id', (req, res) => {
   const idToRemove = +req.params.id
   _.remove(req.session.users, user => user.id == idToRemove)
-  res.send(`Success removing element ${id}!!`)
+  res.send(`Success removing element ${idToRemove}!!`)
 })
 
 router.put('/user/:id', (req, res) => {
   const idToEdit = +req.params.id
   const { editedValue } = req.body
   _.find(req.session.users, { id: idToEdit }).username = editedValue
-  res.send(`Success editing element ${id}!!`)
+  res.send(`Success editing element ${idToEdit}!!`)
 })
 
 module.exports = router
