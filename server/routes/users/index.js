@@ -1,5 +1,5 @@
 const express = require('express')
-
+const _ = require('lodash')
 const router =  express.Router()
 
 router.get('/users', (req, res) => {
@@ -15,18 +15,15 @@ router.post('/users', (req, res) => {
 })
 
 router.delete('/user/:id', (req, res) => {
-  const id = +req.params.id
-  req.session.users = req.session.users.filter( user => user.id !== id )
+  const idToRemove = +req.params.id
+  _.remove(req.session.users, user => user.id == idToRemove)
   res.send(`Success removing element ${id}!!`)
 })
 
 router.put('/user/:id', (req, res) => {
-  const id = +req.params.id
+  const idToEdit = +req.params.id
   const { editedValue } = req.body
-  req.session.users = req.session.users.map( user => {
-    if (user.id === id) { user.username = editedValue }
-    return user
-  })
+  _.find(req.session.users, { id: idToEdit }).username = editedValue
   res.send(`Success editing element ${id}!!`)
 })
 
