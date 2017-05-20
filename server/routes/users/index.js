@@ -2,35 +2,31 @@ const express = require('express')
 
 const router =  express.Router()
 
-let aNames = require('../../data/data.json')
-const writeNamesInFile = require('../../writeNamesInFile.js')
-
 router.get('/users', (req, res) => {
-  res.render('users', {
-    names: aNames
-  })
+  const users = req.session.users
+  res.render('users', { users })
 })
 
 router.post('/users', (req, res) => {
-  const userName = req.body.username
-  aNames.push(userName)
-  writeNamesInFile(aNames)
-    .then( () => res.redirect('/users') )
+  let users = req.session.users
+  const { username } = req.body
+  users.push(username)
+  res.redirect('/users')
 })
 
 router.delete('/users/:id', (req, res) => {
-  const id = req.params.id
-  aNames.splice(id, 1)
-  writeNamesInFile(aNames)
-    .then( () => res.send(`Success removing element ${id}!!`) )
+  let users = req.session.users
+  const { id } = req.params
+  users.splice(id, 1)
+  res.send(`Success removing element ${id}!!`)
 })
 
 router.put('/users/:id', (req, res) => {
-  const id = req.params.id
-  const editedValue = req.body.editedValue
-  aNames[id] = editedValue
-  writeNamesInFile(aNames)
-    .then( () => res.send(`Success editing element ${id}!!`) )
+  let users = req.session.users
+  const { id } = req.params
+  const { editedValue } = req.body
+  users[id] = editedValue
+  res.send(`Success editing element ${id}!!`)
 })
 
 module.exports = router
