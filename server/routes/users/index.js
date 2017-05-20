@@ -8,24 +8,21 @@ router.get('/users', (req, res) => {
 })
 
 router.post('/users', (req, res) => {
-  let users = req.session.users
   const { username } = req.body
-  users.push(username)
+  req.session.users.push(username)
   res.redirect('/users')
 })
 
 router.delete('/users/:id', (req, res) => {
-  let users = req.session.users
   const { id } = req.params
-  users.splice(id, 1)
+  req.session.users.splice(id, 1)
   res.send(`Success removing element ${id}!!`)
 })
 
 router.put('/users/:id', (req, res) => {
-  let users = req.session.users
   const { id } = req.params
   const { editedValue } = req.body
-  users[id] = editedValue
+  req.session.users[id] = editedValue
   res.send(`Success editing element ${id}!!`)
 })
 
