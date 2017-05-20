@@ -31,6 +31,8 @@ app.use(express.static( path.join(__dirname, '../client')  ))
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, '/views'));
 
+app.locals.pretty = true;
+
 app.use(userRoutes)
 
 app.listen(PORT, () => console.log(`🤘 Magic happens at PORT ${PORT}...`))

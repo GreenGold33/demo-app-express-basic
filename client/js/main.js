@@ -1,3 +1,6 @@
+toastr.options.timeOut = 1500
+toastr.options.positionClass = "toast-bottom-right"
+
 $('.list-users .remove').on('click', function(e) {
   e.preventDefault();
   const $thisElement = $(this)
@@ -5,9 +8,10 @@ $('.list-users .remove').on('click', function(e) {
   const method = 'DELETE'
   $.ajax({ url, method })
     .done( response => {
-      console.log(response)
+      toastr.success(response)
       $thisElement.parents('.list-group-item').remove()
     })
+    .fail( () =>  alert("Try removing again champ!") );
 
 })
 
@@ -44,8 +48,9 @@ $(".edit-form").on("submit", function(e) {
         .end()
       .find("input")
         .addClass("hidden")
-    console.log(response)
+    toastr.success(response)
   })
+  .fail( () =>  alert("Try removing again champ!") );
 
 
 })
