@@ -102,7 +102,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>We instantiate an <code>express()</code> application into the <code>app</code> variable.
+              <p>We instantiate an <code>express()</code> application into the <code>app</code> variable.<br/>
 So <code>app</code> will inherite methods such as <code>app.use</code>, <code>app.get</code>, <code>app.set</code>…</p>
 
             </div>
@@ -148,9 +148,9 @@ So <code>app</code> will inherite methods such as <code>app.use</code>, <code>ap
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>We set this app (through <em>middlewares</em>) to use sessions w/ this configuration.
-Every user requesting some endpoint from this server will be assigned to a session <em>space</em> in the server that will be unique for every user (controller by cookies on the client).
-The data of sessions will be available on every request in <code>req.session</code>.</p>
+              <p>We set this app (through <em>middlewares</em>) to use sessions w/ this configuration.<br/>
+Every user requesting some endpoint from this server will be assigned to his own <em>session</em> in the server that will be unique for every user (controller by cookies on the client).<br/>
+The data of the user’s sessions will be available on every request in <code>req.session</code>.</p>
 
             </div>
             
@@ -171,8 +171,8 @@ The data of sessions will be available on every request in <code>req.session</co
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>We set this app (through <em>middlewares</em>) to parse the data received from the client.
-This data will be available in <code>req.body</code>.<br/></p>
+              <p>We set this app (through <em>middlewares</em>) to parse the data received from the client.<br/>
+This data will be available in <code>req.body</code>.</p>
 
             </div>
             
@@ -220,7 +220,7 @@ This data will be available in <code>req.body</code>.<br/></p>
             </div>
             
             <div class="content"><div class='highlight'><pre>app.use(<span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
-  req.session.users = req.session.users || []
+  req.session.users = req.session.users || []
   next()
 })</pre></div></div>
             
@@ -237,7 +237,7 @@ This data will be available in <code>req.body</code>.<br/></p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.use(express.static( path.join(__dirname, <span class="hljs-string">'../client'</span>)  ))</pre></div></div>
+            <div class="content"><div class='highlight'><pre>app.use(express.static(path.join(__dirname, <span class="hljs-string">'../client'</span>)))</pre></div></div>
             
         </li>
         
@@ -253,7 +253,7 @@ This data will be available in <code>req.body</code>.<br/></p>
             </div>
             
             <div class="content"><div class='highlight'><pre>app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'pug'</span>)
-app.set(<span class="hljs-string">'views'</span>, path.join(__dirname, <span class="hljs-string">'/views'</span>));</pre></div></div>
+app.set(<span class="hljs-string">'views'</span>, path.join(__dirname, <span class="hljs-string">'/views'</span>))</pre></div></div>
             
         </li>
         
@@ -268,11 +268,37 @@ app.set(<span class="hljs-string">'views'</span>, path.join(__dirname, <span cla
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.locals.pretty = <span class="hljs-literal">true</span>;
+            <div class="content"><div class='highlight'><pre>app.locals.pretty = <span class="hljs-literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>We link (couple, add) the set of routes (and their logic) defined in another <code>router</code></p>
 
-app.use(userRoutes)
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(userRoutes)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Start listining to requests</p>
 
-app.listen(PORT, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`🤘 Magic happens at PORT <span class="hljs-subst">${PORT}</span>...`</span>))</pre></div></div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.listen(PORT, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`🤘 Magic happens at PORT <span class="hljs-subst">${PORT}</span>...`</span>))</pre></div></div>
             
         </li>
         
